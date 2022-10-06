@@ -2,9 +2,9 @@ const UserController = require('./controllers/UserController.js');
 const UserAuthenController = require('./controllers/UserAuthenController');
 const isAuthenController = require('./authen/isAuthenController')
 const BlogController = require('./controllers/BlogController');
-const FoodControolers = require('./controllers/FoodController');
-const Blog = require('./models/Blog.js');
+const FoodController = require('./controllers/FoodController');
 const Food = require('./models/Food.js');
+const Blog = require('./models/Blog.js');
 
 let multer = require("multer")
 
@@ -27,7 +27,9 @@ module.exports = (app) => {
     app.put('/user/:userId', UserController.put)
     app.delete('/user/:userId', UserController.remove)
     app.get('/user/:userId', UserController.show)
+
     app.get('/users', isAuthenController, UserController.index)
+
     app.post('/login', UserAuthenController.login)
     
     app.post('/blog', BlogController.create)
@@ -36,11 +38,11 @@ module.exports = (app) => {
     app.get('/blog/:blogId', BlogController.show)
     app.get('/blogs', BlogController.index)
 
-    app.post('Food', BlogController.create)
-    app.put('/Food/:FoodId', BlogController.put)
-    app.delete('/Food/:FoodId', BlogController.remove)
-    app.get('/Food/:FoodId', BlogController.show)
-    app.get('/Food', BlogController.index)
+    app.post('Food', FoodController.create)
+    app.put('/Food/:FoodId', FoodController.put)
+    app.delete('/Food/:FoodId', FoodController.remove)
+    app.get('/Food/:FoodId', FoodController.show)
+    app.get('/Food', FoodController.index)
 
     app.post('/upload', function (req, res) {
         upload(req, res, function (err) {
