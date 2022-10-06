@@ -1,3 +1,4 @@
+
 let express = require('express');
 const {sequelize} = require('./models');
 let cors = require('cors')
