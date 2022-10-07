@@ -139,7 +139,7 @@ export default {
   border-radius: 50px;
   margin-top: 100px;
   width: 40%;
-  background: #CCCCFF;
+  background: hsl(135, 62%, 65%);
   padding: 30px;
 }
 .blog-tab {
