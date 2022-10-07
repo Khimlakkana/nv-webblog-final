@@ -2,8 +2,8 @@ const UserController = require('./controllers/UserController.js');
 const UserAuthenController = require('./controllers/UserAuthenController');
 const isAuthenController = require('./authen/isAuthenController')
 const BlogController = require('./controllers/BlogController');
-const FoodController = require('./controllers/FoodController');
-const Food = require('./models/Food.js');
+const ProductController = require('./controllers/ProductController');
+const Product = require('./models/Product.js');
 const Blog = require('./models/Blog.js');
 
 let multer = require("multer")
@@ -38,11 +38,11 @@ module.exports = (app) => {
     app.get('/blog/:blogId', BlogController.show)
     app.get('/blogs', BlogController.index)
 
-    app.post('Food', FoodController.create)
-    app.put('/Food/:FoodId', FoodController.put)
-    app.delete('/Food/:FoodId', FoodController.remove)
-    app.get('/Food/:FoodId', FoodController.show)
-    app.get('/Food', FoodController.index)
+    app.post('Product', ProductController.create)
+    app.put('/Product/:ProductId', ProductController.put)
+    app.delete('/Product/:ProductId', ProductController.remove)
+    app.get('/Product/:ProductId', ProductController.show)
+    app.get('/Product', ProductController.index)
 
     app.post('/upload', function (req, res) {
         upload(req, res, function (err) {
