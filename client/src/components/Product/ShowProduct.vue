@@ -1,31 +1,31 @@
 <template>
 	<div>
-		<h1>Show Product</h1>
-		<p>id: {{ Product.id }}</p>
-		<p>title: {{ Product.title }}</p>
-		<p>content: {{ Product.content }}</p>
-		<p>category: {{ Product.category }}</p>
-		<p>status: {{ Product.status }}</p>
+		<h1>Show Order</h1>
+		<p>id: {{ blog.id }}</p>
+		<p>title: {{ blog.title }}</p>
+		<p>content: {{ blog.content }}</p>
+		<p>category: {{ blog.category }}</p>
+		<p>status: {{ blog.status }}</p>
 		<p>
-			<button v-on:click="navigateTo('/Product/edit/' + Product.id)">
-				แก้ไข Product
+			<button v-on:click="navigateTo('/blog/edit/' + blog.id)">
+				แก้ไข Order
 			</button>
-			<button v-on:click="navigateTo('/Product')">กลับ</button>
+			<button v-on:click="navigateTo('/blogs')">กลั บ</button>
 		</p>
 	</div>
 </template>
 <script>
-import ProductService from "@/services/ProductService";
+import BlogsService from "@/services/BlogsService";
 export default {
 	data() {
 		return {
-			Product: null,
+			blog: null,
 		};
 	},
 	async created() {
 		try {
-			let ProductId = this.$route.params.ProductId;
-			this.Product = (await ProductService.show(ProductId)).data;
+			let blogId = this.$route.params.blogId;
+			this.blog = (await BlogsService.show(blogId)).data;
 		} catch (error) {
 			console.log(error);
 		}
