@@ -2,7 +2,7 @@
 	<div>
 		<center><h2>เลือกสินค้า</h2>
 		<img src = "@/assets/nn.png" alt ="amd">
-           </center>
+        </center>
 		<p><button v-on:click="logout">Logout</button></p>
 		<h4>จํานวน blog {{ blogs.length }}</h4>
 		<p><button v-on:click="navigateTo('/blog/create')">สร้าง blog</button></p>

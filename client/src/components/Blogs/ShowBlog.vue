@@ -10,7 +10,7 @@
 			<button v-on:click="navigateTo('/blog/edit/' + blog.id)">
 				แก้ไข blog
 			</button>
-			<button v-on:click="navigateTo('/blogs')">กลั บ</button>
+			<button v-on:click="navigateTo('/blogs')">กลับ</button>
 		</p>
 	</div>
 </template>
