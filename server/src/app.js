@@ -1,24 +1,34 @@
+let express = require('express')
 
-let express = require('express');
-const {sequelize} = require('./models');
+const {sequelize} = require('./models')
 let cors = require('cors')
-const config = require('./config/config');
+const config = require('./config/config')
 
-const app = express();
+const app = express()
 
-app.use(express.json()); 
-app.use(express.urlencoded({extended: true})); 
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
 app.use(cors())
-app.use('/assets',express.static('public'))
+app.use('/assets',express.static('public')) //เพิ่มมาในบทที่12 อ้างอิงโดยตรง
 
-require('./userPassport')
-
+require('./userPassport') 
 require('./routes')(app)
 
 
-let port = process.env.PORT || config.port;
-sequelize.sync({force: false}).then(() =>{
-    app.listen(port, function(){
-        console.log('server running on ' + port);
-    })
+
+app.get('/status', function (req, res ){
+  res.send('Hello nodejs server')
+})
+
+app.get('/hello/:person', function (req,res) {
+  console.log('hello - ' + req.params.person)
+  res.send('sey hello with ' + req.params.person)
+})
+
+let port = process.env.PORT || config.port
+
+sequelize.sync({force: false}).then(() => {
+  app.listen(port, function() {
+      console.log('Server running on ' + port)
+  })
 })

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// import HelloWorld from '@/components/HelloWorld'
+//import HelloWorld from '@/components/HelloWorld'
 
 import UserIndex from '@/components/Users/Index'
 import UserCreate from '@/components/Users/CreateUser'
@@ -8,24 +8,31 @@ import UserEdit from '@/components/Users/EditUser'
 import UserShow from '@/components/Users/ShowUser'
 import Login from '@/components/Login'
 
+
+//Blog
 import BlogIndex from '@/components/Blogs/Index'
 import BlogCreate from '@/components/Blogs/CreateBlog'
 import BlogEdit from '@/components/Blogs/EditBlog'
 import BlogShow from '@/components/Blogs/ShowBlog'
 
-import ProductIndex from '@/components/Product/Index'
-import ProductCreate from '@/components/Product/CreateProduct'
-import ProductEdit from '@/components/Product/EditProduct'
-import ProductShow from '@/components/Product/ShowProduct'
 
+//Comment
 import CommentIndex from '@/components/Comments/Index'
+import CommentCreate from '@/components/Comments/CreateComment'
+import CommentEdit from '@/components/Comments/EditComment'
+import CommentShow from '@/components/Comments/ShowComment'
 
+//Room
+import RoomIndex from '@/components/Rooms/Index'
+
+// upload testing
 import Upload from '@/components/Utils/Upload'
 
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
+  mode:'history',
+  
   routes: [
     {
       path: '/users',
@@ -47,11 +54,14 @@ export default new Router({
       name: 'user',
       component: UserShow
     },
+    //authen
     {
       path: '/login',
       name: 'login',
       component: Login
     },
+
+    //blog
     {
       path: '/blogs',
       name: 'blogs',
@@ -61,7 +71,8 @@ export default new Router({
       path: '/blog/create',
       name: 'blog-create',
       component: BlogCreate
-    },{
+    },
+    {
       path: '/blog/edit/:blogId',
       name: 'blog-edit',
       component: BlogEdit
@@ -72,36 +83,42 @@ export default new Router({
       component: BlogShow
     },
 
-    {
-      path: '/Products',
-      name: 'Products',
-      component: ProductIndex
-    },
-    {
-      path: '/Product/create',
-      name: 'Product-create',
-      component: ProductCreate
-    },
-    {
-      path: '/Product/edit/:ProductId',
-      name: 'Product-edit',
-      component: ProductEdit
-    },
-    {
-      path: '/Product/:ProductId',
-      name: 'Product',
-      component: ProductShow
-    },
-
+    //comments
     {
       path: '/comments',
       name: 'comments',
       component: CommentIndex
     },
     {
+      path: '/comment/create',
+      name: 'comment-create',
+      component: CommentCreate
+    },
+    {
+      path: '/comment/edit/:commentId',
+      name: 'comment-edit',
+      component: CommentEdit
+    },
+    {
+      path: '/comment/:commentId',
+      name: 'comment',
+      component: CommentShow
+    },
+
+    // upload testing
+    {
       path: '/upload',
       name: 'upload',
       component: Upload
-    }
+    },
+
+     //room
+     {
+      path: '/rooms',
+      name: 'rooms',
+      component: RoomIndex
+    },
+
+
   ]
 })

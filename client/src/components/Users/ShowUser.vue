@@ -1,29 +1,61 @@
 <template>
   <div>
-    <h1>Show User</h1>
-    <p>id: {{ userId }}</p>
-    <p>ชื่อ - นามสกุล {{ user.name }} - {{ user.lastname }}</p>
-    <p>email: {{ user.email }}</p>
-    <p>password: {{ user.password }}</p>
+  
+      <b-container class="bv-example-row">
+      <b-row class="text-left">
+           <b-col></b-col>
+  
+           <b-col cols="10" class="bg1">
+      <h1> ข้อมูลผู้ใช้  </h1>
+      <hr>
+      <div class="box">
+         <p>id : {{ user.id }}</p>
+          <p>ชื่อ-นามสกุล : {{ user.name }} - {{ user.lastname }}</p>
+          <p>email : {{ user.email }}</p>
+         <!-- <p>password : {{ user.password}}</p> -->
+  <hr>
+      <p>
+       <!--  <b-button pill variant="warning" v-on:click="navigateTo('/user/edit/'+ user.id)">แก้ไขข้อมูล</b-button> -->
+        <b-button pill variant="secondary" v-on:click="navigateTo('/users')">ย้อนกลับ</b-button>
+      </p>
   </div>
-</template>
-<script>
-import UserService from "@/services/UsersService";
-export default {
-  data() {
-    return {
-      user: null,
-    };
-  },
-  async created() {
-    try {
-      let userId = this.$route.params.userId;
-      this.user = (await UserService.show(userId)).data;
-    } catch (error) {
-      console.log(error);
-    }
-  },
-};
-</script>
-<style scoped>
-</style>
+      </b-col>
+      
+        <b-col> </b-col>
+       </b-row>
+  </b-container>
+    
+  </div>
+  </template>
+  
+  <script>
+  
+  import UsersService from '@/services/UsersService'
+  
+      export default {
+          data () {
+              return {
+                  user: null
+              }
+          },
+      async created (){
+          try{
+             let userId = this.$route.params.userId
+             this.user = (await UsersService.show(userId)).data
+          } catch (error){
+          console.log (error)
+          }
+      },
+      methods: {
+      navigateTo(route) {
+        this.$router.push(route);
+      },
+    },
+  }
+  
+  </script>
+  <style scoped>
+  
+  
+  </style>
+  

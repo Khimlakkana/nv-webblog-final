@@ -1,51 +1,99 @@
 <template>
-	<div>
-		<div class="nv-navbar">
-			<ul class="nav">
-				<li><router-link :to="{ name: 'Product' }">shops</router-link></li>
-				<li><router-link :to="{ name: 'users' }">Users</router-link></li>
-				<li><router-link :to="{ name: 'comments' }">Add Product</router-link></li>
-				<li><router-link :to="{ name: 'login' }">Login</router-link></li>
-				<li><router-link :to="{ name: 'blogs' }">Blogs</router-link></li>
-			</ul>
-			<div class="clearfix" />
-		</div>
-	</div>
+    <div>
+        <div class="sidebar"> 
+           
+            <a><router-link :to="{name: 'login'}"><i class="fa fa-home " aria-hidden="true"></i> เข้าสู่ระบบ</router-link></a>
+            <a><router-link :to="{name: 'blogs'}"><i class="fa fa-bars " aria-hidden="true"></i> เลือกสินค้า</router-link></a>
+              <a><router-link :to="{name: 'comments'}"><i class="fa fa-pencil " aria-hidden="true"></i>ลงขายสินค้า</router-link></a>
+              <a><router-link :to="{name: 'users'}"><i class="fa fa-user " aria-hidden="true"></i> จำนวนผู้ใช้งาน</router-link></a>
+            <a><a v-on:cick.prevent="logout" href="login"><i class=" fa fa-sign-out" aria-hidden="true"></i> ออกจากระบบ</a></a>
+        
+        </div>
+    </div>
+
 </template>
+
 <script>
-export default {};
+export default {
+  methods: {
+    logout () {
+      this.$store.dispatch('setToken', null)
+      this.$store.dispatch('setUser', null)
+      this.$router.push({
+        name: 'login'
+      })
+    }
+  }
+};
 </script>
+
 <style scoped>
-.nv-navbar {
-	background-color: rgb(12, 12, 3);
-	width: 100%;
-	padding: 10px 0px 10px 0px;
+    /* The side navigation menu */
+.sidebar {
+  margin: 0;
+  padding: 0;
+  width: 280px;
+  background-color: rgba(143, 7, 177, 0.98);
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+  font-size: 20px;
+  border-radius: 0px 30px 30px 0px;
+
 }
-.nv-navbar .nav {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	float: left;
+
+/* Sidebar links */
+.sidebar a {
+  display: block;
+  color: white;
+  padding: 9px; /* ห่างจากตัวออกไป */
+  text-decoration: none;
 }
-.nv-navbar .nav li {
-	float: left;
+
+/* Active/current link */
+.sidebar a.active {
+  background-color: #2a8ddd;
+  color: white;
 }
-.nv-navbar .nav li a {
-	padding: 10px;
-	text-decoration: none;
-	color: rgb(249, 246, 246);
-	font-weight: bold;
+
+/* Links on mouse-over */
+.sidebar a:hover:not(.active) {
+  background-color: #0b9ba0;
+  border-radius: 50px 50px 50px 50px;
+  color: white;
 }
-.nv-navbar .nav li a:hover {
-	padding: 10px;
-	text-decoration: none;
-	color: rgb(97, 238, 97);
+
+/* Page content. The value of the margin-left property should match the value of the sidebar's width property */
+div.content {
+  margin-left: 200px;
+  padding: 1px 16px;
+  height: 1000px;
 }
-.nv-navbar .nav li a.router-link-active {
-	background-color: rgb(76, 223, 110);
-	color: darkslategrey;
+
+/* On screens that are less than 700px wide, make the sidebar into a topbar */
+@media screen and (max-width: 700px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  .sidebar a {float: left;}
+  div.content {margin-left: 0;}
 }
-.clearfix {
-	clear: left;
+
+/* On screens that are less than 400px, display the bar vertically, instead of horizontally */
+@media screen and (max-width: 400px) {
+  .sidebar a {
+    text-align: center;
+    float: none;
+  }
 }
+
+.sidebar a.router-link-active{
+    color: white;
+    background-color: #2a8ddd;
+     border-radius: 50px 50px 50px 50px;
+
+}
+
 </style>

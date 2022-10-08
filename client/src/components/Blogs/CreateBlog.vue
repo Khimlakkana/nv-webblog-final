@@ -1,71 +1,86 @@
 <template>
   <div>
-    <h1>Create Blog</h1>
-    <form v-on:submit.prevent="createBlog">
-      <p>title: <input type="text" v-model="blog.title" /></p>
-      <transition name="fade">
-		<div class="thumbnail-pic" v-if="blog.thumbnail != 'null'">
-			<img :src="BASE_URL + blog.thumbnail" alt="thumbnail" />
-		</div>
-	  </transition>
-      <form enctype="multipart/form-data" novalidate>
-        <div class="dropbox">
-          <input
-            type="file"
-            multiple
-            :name="uploadFieldName"
-            :disabled="isSaving"
-            @change="
-              filesChange($event.target.name, $event.target.files);
-              fileCount = $event.target.files.length;
-            "
-            accept="image/*"
-            class="input-file"
-          />
-          <!-- <p v-if="isInitial || isSuccess"> -->
-          <p v-if="isInitial">
-            Drag your file(s) here to begin<br />
-            or click to browse
-          </p>
-          <p v-if="isSaving">Uploading {{ fileCount }} files...</p>
-          <p v-if="isSuccess">Upload Successful.</p>
-          <p v-if="isFailed">Upload Failed.</p>
-        </div>
-        <div>
-          <ul class="pictures">
-            <li v-for="picture in pictures" v-bind:key="picture.id">
-              <img
-                style="margin-bottom: 5px"
-                :src="BASE_URL + picture.name"
-                alt="picture image"
-              />
-              <button v-on:click.prevent="delFile(picture)">Delete</button>
-			  <button v-on:click.prevent="useThumbnail(picture.name)">Thumbnail</button>
-            </li>
-          </ul>
-          <div class="clearfix"></div>
-        </div>
-      </form>
-      <p><strong>content:</strong></p>
-      <p>
-        <vue-ckeditor
-          v-model.lazy="blog.content"
-          :config="config"
-          @blur="onBlur($event)"
-          @focus="onFocus($event)"
-        />
-      </p>
+    <b-container class="bv-example-row">
+      <b-row class="text-left">
+        <b-col></b-col>
 
-      <p>category: <input type="text" v-model="blog.category" /></p>
-      <p>status: <input type="text" v-model="blog.status" /></p>
-      <p><button type="submit">create blog</button></p>
-    </form>
+        <b-col cols="10" class="bg1">
+          <h1>เลือกสินค้า</h1>
+          <hr>
+          <center><img src = "@/assets/pic1.jpg" alt ="amd">
+           <div class="welcome-text">
+          <h4>EVGA 1080 TI มือสอง ราคาถูก ประกัน 1.9 ปี 12,490.00 </h4></div>
+          <img src = "@/assets/pic2.jpg" alt ="amd">
+          <div class="welcome-text">
+          <h4>GALAX GTX 1050 Ti EXOC 4GB Dual FAN มือสอง ราคาถูก 3,490.00 </h4></div>
+          <img src = "@/assets/pic3.jpg" alt ="amd">
+          <div class="welcome-text">
+          <h4>GALAX GTX 1060 6GB EXOC การ์ดจอมือสอง ราคา 4990 บาท </h4></div>
+          <img src = "@/assets/pic4.jpg" alt ="amd">
+          <div class="welcome-text">
+          <h4>GTX 1080 TI ราคามือสอง ยีห้อ GALAX โปรโมชั่น ลดราคา 14,590.00  </h4></div>
+          <img src = "@/assets/pic5.jpg" alt ="amd">
+          <div class="welcome-text">
+          <h4>ZOTAC 1070 AMP Extreme มือสอง 7,250.00  </h4></div>
+          <img src = "@/assets/pic6.jpg" alt ="amd">
+          <div class="welcome-text">
+          <h4>Asus RTX ROG Strix 2080 o8g ตัวท็อปของรุ่น มือสอง 23,000.00 </h4></div>
+          <img src = "@/assets/pic7.jpg" alt ="amd">
+          <div class="welcome-text">
+          <h4> GTX 1080 Ti GameRock Premium Edition  11GB 12,490.00  </h4></div>
+          <br><hr></center>
+          <form class="box1" v-on:submit.prevent="createBlog">
+         
+            <p> ชื่อ : <input type="text" class="form-control" v-model="blog.firstname" /> </p>
+            
+            <p> นามสกุล : <input type="text" class="form-control" v-model="blog.lastname" /> </p>
+            
+            <p> สินค้า :
+              <select required class="form-control"  v-model="blog.nroom">
+                      <option>EVGA 1080 TI มือสอง ราคาถูก ประกัน 1.9 ปี 12,490.00</option>
+                      <option>GALAX GTX 1050 Ti EXOC 4GB Dual FAN มือสอง ราคาถูก 3,490.00</option>
+                      <option>GALAX GTX 1060 6GB EXOC การ์ดจอมือสอง ราคา 4990 บาท </option>
+                      <option>GTX 1080 TI ราคามือสอง ยีห้อ GALAX โปรโมชั่น ลดราคา 14,590.00</option>
+                      <option>ZOTAC 1070 AMP Extreme มือสอง 7,250.00</option>
+                      <option>Asus RTX ROG Strix 2080 o8g ตัวท็อปของรุ่น มือสอง 23,000.00</option>
+                      <option>GTX 1080 Ti GameRock Premium Edition  11GB 12,490.00</option>
+              </select>
+            </p>
+
+            <p> จำนวนที่ต้องการสั่งซื้อ : <input type="number" class="form-control" required v-model="blog.pnum" /></p>
+
+            <p> เบอร์โทรศัพท์ : <input type="tel" class="form-control" required v-model="blog.tel" /></p>
+            
+            <p> ที่อยู่ : <input type="text" required class="form-control" v-model="blog.other" /></p>
+        
+            <p>
+              <b-button pill variant="success" type="submit"
+                >ยืนยันการสั่งซื้อ</b-button
+              >
+              <b-button
+                pill
+                variant="secondary"
+                v-on:click="navigateTo('/blogs')"
+                >ย้อนกลับ</b-button
+              >
+            </p>
+          </form>
+
+        </b-col>
+        <b-col> </b-col>
+      </b-row>
+    </b-container>
   </div>
+
 </template>
+
+
+
 <script>
-import BlogsService from "@/services/BlogsService";
+import BlogService from "@/services/BlogsService";
 import VueCkeditor from "vue-ckeditor2";
 import UploadService from "@/services/UploadService";
+import App from "../../App.vue";
 
 const STATUS_INITIAL = 0,
   STATUS_SAVING = 1,
@@ -77,159 +92,67 @@ export default {
     return {
       BASE_URL: "http://localhost:8081/assets/uploads/",
       error: null,
-      // uploadedFiles: [],
+      //uploadedFiles: [],
       uploadError: null,
       currentStatus: null,
       uploadFieldName: "userPhoto",
       uploadedFileNames: [],
+
       pictures: [],
       pictureIndex: 0,
+
       blog: {
         title: "",
         thumbnail: "null",
-        pictures: "null",
+        pictues: "null",
         content: "",
         category: "",
-        status: "",
+        status: ""
       },
       config: {
-        toolbar: [
-          {
-            name: "document",
-            items: [
-              "Source",
-              "-",
-              "Save",
-              "NewPage",
-              "Preview",
-              "Print",
-              "-",
-              "Templates",
-            ],
-          },
-          {
-            name: "clipboard",
-            items: [
-              "Cut",
-              "Copy",
-              "Paste",
-              "PasteText",
-              "PasteFromWord",
-              "-",
-              "Undo",
-              "Redo",
-            ],
-          },
-          {
-            name: "editing",
-            items: ["Find", "Replace", "-", "SelectAll", "-", "Scayt"],
-          },
-          {
-            name: "forms",
-            items: [
-              "Form",
-              "Checkbox",
-              "Radio",
-              "TextField",
-              "Textarea",
-              "Select",
-              "Button",
-              "ImageButton",
-              "HiddenField",
-            ],
-          },
-          "/",
-          {
-            name: "basicstyles",
-            items: [
-              "Bold",
-              "Italic",
-              "Underline",
-              "Strike",
-              "Subscript",
-              "Superscript",
-              "-",
-              "CopyFormatting",
-              "RemoveFormat",
-            ],
-          },
-          {
-            name: "paragraph",
-            items: [
-              "NumberedList",
-              "BulletedList",
-              "-",
-              "Outdent",
-              "Indent",
-              "-",
-              "Blockquote",
-              "CreateDiv",
-              "-",
-              "JustifyLeft",
-              "JustifyCenter",
-              "JustifyRight",
-              "JustifyBlock",
-              "-",
-              "BidiLtr",
-              "BidiRtl",
-              "Language",
-            ],
-          },
-          { name: "links", items: ["Link", "Unlink", "Anchor"] },
-          {
-            name: "insert",
-            items: [
-              "Image",
-              "Flash",
-              "Table",
-              "HorizontalRule",
-              "Smiley",
-              "SpecialChar",
-              "PageBreak",
-              "Iframe",
-              "InsertPre",
-            ],
-          },
-          "/",
-          { name: "styles", items: ["Styles", "Format", "Font", "FontSize"] },
-          { name: "colors", items: ["TextColor", "BGColor"] },
-          { name: "tools", items: ["Maximize", "ShowBlocks"] },
-          { name: "about", items: ["About"] },
-        ],
-        height: 300,
-      },
+        /* toolbar: [
+          ["Bold", "Italic", "Underline", "Strike", "Subscript", "SuperScript"],
+        ], */
+        height: 300
+      }
     };
   },
   methods: {
     async createBlog() {
+      this.blog.pictures = JSON.stringify(this.pictures); //update ค่าของ blogs.pictrues
       try {
-        this.blog.pictures = JSON.stringify(this.pictures);
-        await BlogsService.post(this.blog);
+        await BlogService.post(this.blog);
         this.$router.push({
-          name: "blogs",
+          name: "blogs"
         });
       } catch (err) {
         console.log(err);
       }
+    },
+    onBlur(editor) {
+      console.log(editor);
+    },
+    onfocus(editor) {
+      console.log(editor);
     },
     navigateTo(route) {
       console.log(route);
       this.$router.push(route);
     },
     wait(ms) {
-      return (x) => {
-        return new Promise((resolve) => setTimeout(() => resolve(x), ms));
+      return x => {
+        return new Promise(resolve => setTimeout(() => resolve(x), ms));
       };
     },
     reset() {
-      // reset form to initial state
+      //reset form to initial state
       this.currentStatus = STATUS_INITIAL;
-      // this.uploadedFiles = []
+      //this.uploadedFiles = []
       this.uploadError = null;
       this.uploadedFileNames = [];
     },
     async save(formData) {
-      // upload data to the server
+      //upload data to the server
       try {
         this.currentStatus = STATUS_SAVING;
         await UploadService.upload(formData);
@@ -237,7 +160,7 @@ export default {
 
         // update image uploaded display
         let pictureJSON = [];
-        this.uploadedFileNames.forEach((uploadFilename) => {
+        this.uploadedFileNames.forEach(uploadFilename => {
           let found = false;
           for (let i = 0; i < this.pictures.length; i++) {
             if (this.pictures[i].name == uploadFilename) {
@@ -245,11 +168,12 @@ export default {
               break;
             }
           }
+
           if (!found) {
             this.pictureIndex++;
             let pictureJSON = {
               id: this.pictureIndex,
-              name: uploadFilename,
+              name: uploadFilename
             };
             this.pictures.push(pictureJSON);
           }
@@ -261,28 +185,35 @@ export default {
         this.currentStatus = STATUS_FAILED;
       }
     },
-    filesChange(fieldName, fileList) {
-      // handle file changes
+    filesChange(filedName, fileList) {
+      //handle file changes
       const formData = new FormData();
+
       if (!fileList.length) return;
-      // append the files to FormData
-      Array.from(Array(fileList.length).keys()).map((x) => {
-        formData.append(fieldName, fileList[x], fileList[x].name);
+
+      //append the files to FormData
+      Array.from(Array(fileList.length).keys()).map(x => {
+        formData.append(filedName, fileList[x], fileList[x].name);
         this.uploadedFileNames.push(fileList[x].name);
       });
-      // save it
+
+      //save it
       this.save(formData);
     },
-    clearUploadResult: function () {
+    clearUploadResult: function() {
       setTimeout(() => this.reset(), 5000);
     },
+
+    //เรียกใช้ v-0n:cick.prevent ส่ง picture ไปลบ
     async delFile(material) {
       let result = confirm("Want to delete?");
       if (result) {
         let dataJSON = {
-          filename: material.name,
+          filename: material.name
         };
+
         await UploadService.delete(dataJSON);
+
         for (var i = 0; i < this.pictures.length; i++) {
           if (this.pictures[i].id === material.id) {
             this.pictures.splice(i, 1);
@@ -292,11 +223,14 @@ export default {
         }
       }
     },
-	useThumbnail(filename){
-		console.log(filename)
-		this.blog.thumbnail = filename
-	}
+
+    /* thumbnail */
+    useThumbnail(filename) {
+      console.log(filename);
+      this.blog.thumbnail = filename;
+    }
   },
+
   created() {
     this.reset();
   },
@@ -304,7 +238,7 @@ export default {
     isInitial() {
       return this.currentStatus === STATUS_INITIAL;
     },
-    isSaving() {
+    issaving() {
       return this.currentStatus === STATUS_SAVING;
     },
     isSuccess() {
@@ -312,18 +246,18 @@ export default {
     },
     isFailed() {
       return this.currentStatus === STATUS_FAILED;
-    },
+    }
   },
   components: {
-    VueCkeditor,
-  },
+    VueCkeditor
+  }
 };
 </script>
 <style scoped>
 .dropbox {
-  outline: 2px dashed grey; /* the dash box */
+  outline: 2px dashed gray; /* the dash box */
   outline-offset: -10px;
-  background: lemonchiffon;
+  background: #fec3df;
   color: dimgray;
   padding: 10px 10px;
   min-height: 200px; /* minimum height */
@@ -338,15 +272,17 @@ export default {
   position: absolute;
   cursor: pointer;
 }
+
 .dropbox:hover {
-  background: khaki; /* when mouse over to the drop zone, change color
-    */
+  background: #fceebe;
 }
+
 .dropbox p {
   font-size: 1.2em;
   text-align: center;
   padding: 50px 0;
 }
+
 ul.pictures {
   list-style: none;
   padding: 0;
@@ -365,7 +301,16 @@ ul.pictures li img {
 .clearfix {
   clear: both;
 }
-.thumbnail-pic img{
-	width:200px
+/* thumbnail */
+.thumbnail-pic img {
+  width: 200px;
 }
+
+input,select {
+      width: 450px;
+    }
+ img{
+   width: 200px; 
+   height: 200px;
+ }   
 </style>
